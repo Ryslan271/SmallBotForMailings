@@ -13,6 +13,7 @@ db_session.global_init('Storage.db')
 
 
 # region Начальное сообщение
+@bot.message_handler(commands=['start'])
 def welcome(message):
     sti = open('assets/hi.tgs', 'rb')
     bot.send_sticker(message.chat.id, sti)
