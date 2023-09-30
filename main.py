@@ -62,7 +62,7 @@ def text_reader(message):
         case "!":
             text_set_message(message)
         case "@":
-            text_sending_message(int(message.text[1:].split(' ')[0]), int(message.text[1:].split(' ')[1]), message)
+            text_sending_message(message)
 
 
 bot.polling(none_stop=True)

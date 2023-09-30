@@ -164,14 +164,17 @@ def text_delete_users_id(message):
                          parse_mode='html', reply_markup=markup)
 
 
-def text_sending_message(id_recipient, id_message, message):
+def text_sending_message(message):
 
     if not quantity_check_message(message) or not quantity_check_users_ids(message):
         return
 
+    users_ids = [" ".join(str(message.text).strip().split(", ")[0]).split(' ')]
+    message_id = str(str(message.text).strip().split(", ")[1])
+
     session = db_session.create_session()
-    user_current_message = session.query(Messages).get(id_message)
-    user_current_recipient = session.query(UserIDs).get(id_recipient)
+    user_current_recipient = [session.query(Messages).get(user_id) for user_id in users_ids]
+    user_current_message = session.query(UserIDs).get(message_id)
 
     bot.send_message(chat_id=user_current_recipient.ListIds, text=user_current_message.text)
 
